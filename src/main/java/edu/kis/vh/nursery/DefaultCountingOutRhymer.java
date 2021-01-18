@@ -5,31 +5,34 @@ public class DefaultCountingOutRhymer {
     protected int[] numbers = new int[tabSize];
     protected static final int tabSize = 12;
 
-    int total = -1;
+    private int total = -1;
 
     public void countIn(int in) {
         if (!isFull())
-            numbers[++total] = in;
+            numbers[total = getTotal() + 1] = in;
     }
 
     public boolean callCheck() {
-        return total == -1;
+        return getTotal() == -1;
     }
 
     public boolean isFull() {
-        return total == tabSize-1;
+        return getTotal() == tabSize-1;
     }
 
     protected int peekaboo() {
         if (callCheck())
             return -1;
-        return numbers[total];
+        return numbers[getTotal()];
     }
 
     public int countOut() {
         if (callCheck())
             return -1;
-        return numbers[total--];
+        return numbers[total = getTotal() - 1];
     }
 
+    public int getTotal() {
+        return total;
+    }
 }
